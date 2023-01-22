@@ -1,0 +1,62 @@
+-- first query 
+select app,rating from apps
+where rating = (select max(rating) from apps);
+
+-- second query
+select app,installs,reviews from apps
+order by reviews desc;
+
+-- third query
+select app,reviews,category from apps
+where reviews = (select max(reviews) from apps);
+
+-- fourth query
+select sum(installs*price) from apps;
+
+-- fifth query
+select category,sum(installs) from apps
+group by category
+order by sum(installs) desc
+limit 1;
+
+-- sixth query
+select genres,count(app) from apps
+group by genres
+order by count(app) desc
+limit 1;
+
+-- seventh query
+select distinct app,installs from apps
+where category = 'game' and installs = (Select max(installs) from apps where category='game');
+
+-- eigth query
+select app from apps
+where `Android Ver` = '4.0.3 and up';
+
+-- ninth query
+select 'free' as 'Amount',count(app) from apps
+where `type` = 'free'
+union
+select 'paid',count(app) from apps
+where `type` = 'paid';
+
+-- tenth query
+select app from apps
+where reviews = (select max(reviews) from apps); 
+
+-- eleventh query
+select sentiment,count(*) from (select * from reviews where App = '10 Best Foods for You') as best
+group by sentiment
+having sentiment = 'positive' or sentiment = 'negative';
+
+-- twelfth query
+select * from reviews
+where app = 'ASUS SuperNote' and Sentiment_Polarity = 1 and Sentiment_Subjectivity = 1;
+
+-- thirteenth query
+select translated_review from reviews
+where App = 'Abs Training-Burn belly fat' and sentiment = 'neutral';
+
+-- fourteenth query
+select translated_review,Sentiment_Polarity,Sentiment_Subjectivity from reviews
+where sentiment = 'negative' and app = 'Adobe Acrobat Reader';
